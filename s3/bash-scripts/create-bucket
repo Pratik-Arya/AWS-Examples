@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+# Set default region if not already configured
+export AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION:-us-east-1}
+
+# Check if the first argument (bucket name) is provided
+if [ -z "$1" ]; then
+    echo "❌ Error: Please provide a bucket name"
+    echo "Usage: ./create-bucket my-bucket-name"
+    exit 1
+fi
+
+Bucket_Name=$1
+
+echo "🚀 Creating S3 bucket: $Bucket_Name in region: $AWS_DEFAULT_REGION"
+
+
+aws s3api create-bucket \
+        --bucket "$Bucket_Name" \
+        --region "$AWS_DEFAULT_REGION" \
+        #--create-bucket-configuration LocationConstraint="$AWS_DEFAULT_REGION"
+

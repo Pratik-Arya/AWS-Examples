@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+echo "==list bucket"
+
+aws s3 ls 
+
+# Show name + creation date sorted
+aws s3api list-buckets \
+  --query "Buckets | sort_by(@, &CreationDate)[].{Name: Name, Created: CreationDate}"
+

@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# Check if the first argument (bucket name) is provided
+if [ -z "$1" ]; then
+    echo "❌ Error: Please provide a bucket name"
+    exit 1
+fi
+
+# Check if the second argument (file name) is provided
+if [ -z "$1" ]; then
+    echo "❌ Error: Please provide a bucket name"
+    exit 1
+fi
+
+Bucket_Name=$1
+FileName=$2
+
+object_key=$(basename "FileName")
+
+aws s3api put-object \
+--bucket $Bucket_Name \
+--body $FileName \
+--key $object_key
+

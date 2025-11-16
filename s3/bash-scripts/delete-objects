@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+echo "delete-objects"
+# Check if the first argument (bucket name) is provided
+if [ -z "$1" ]; then
+    echo "❌ Error: Please provide a bucket name"
+    echo "Usage: ./create-bucket my-bucket-name"
+    exit 1
+fi
+
+Bucket_Name=$1
+
+aws s3api list-objects-v2 \
+  --bucket "$Bucket_Name" \
+  --query "Contents[].Key" \
+  --output text \
+  > /tmp/delete_objects.json
+
+
+aws s3api delete-objects --bucket $Bucket_Name --delete file:///tmp/delete-objects.json
+

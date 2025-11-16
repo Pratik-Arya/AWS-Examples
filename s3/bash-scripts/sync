@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+
+#exit immedately if any command returns a non-zero status
+set -e
+
+# Check if the first argument (bucket name) is provided
+if [ -z "$1" ]; then
+    echo "❌ Error: Please provide a bucket name"
+    echo "Usage: ./create-bucket my-bucket-name"
+    exit 1
+fi
+
+# check for file name prefix
+if [ -z "$2" ]; then
+    echo "❌ Error: Please provide a bucket name"
+    echo "Usage: ./create-bucket my-bucket-name"
+    exit 1
+fi 
+
+Bucket_Name=$1
+File_Name=$2
+
+# Directory where files will be created
+output_dir="/tmp/s3-bash-scripts"
+
+# Create directory if it doesn't exist
+mkdir -p "$output_dir"
+
+# Number of files to create
+num_files=10  # change this to 5, 8, 12 etc.
+
+# Loop to create files
+for i in $(seq 1 $num_files); do
+
+    # Random filename
+    File_Name="file_$RANDOM.txt"
+
+    # Random content (different for each file)
+    random_content="Random content number $RANDOM at $(date)"
+
+    # Create file with content
+    echo "$random_content" > "$output_dir/$File_Name"
+
+    echo "Created: $output_dir/$fILE_Name"
+done
+
+aws s3 sync $output_dir s3://$Bucket_Name/

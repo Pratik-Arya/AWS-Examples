@@ -1,0 +1,20 @@
+
+#!/usr/bin/env bash
+
+# Check at least 2 bucket names
+if [ $# -lt 2 ]; then
+    echo "❌ Please provide at least two bucket names"
+    exit 1
+fi
+
+for bucket in "$@"; do
+    echo "🧹 Deleting bucket: $bucket"
+
+    # 1. Delete all objects inside bucket
+    aws s3 rm s3://$bucket --recursive
+
+    # 2. Delete empty bucket
+    aws s3api delete-bucket --bucket $bucket
+
+    echo "✅ Deleted $bucket"
+done
