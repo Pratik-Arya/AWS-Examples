@@ -1,0 +1,10 @@
+"AWSTemplateFormatVersion": "2010-09-09"
+Description: "A sample s3 bucket"
+Resources:
+  S3Bucket:
+    # https://docs.amazonaws.cn/en_us/AWSCloudFormation/latest/TemplateReference/aws-resource-s3-bucket.html
+    # a name for the bucket. if you don't specify a name , AWS cloudformation generates a unique ID and uses that ID for the BUcket Name.
+    Type: "AWS::S3::Bucket"
+    #DeletionPolicy: Retain
+    #Properties:
+    #BucketName: DOC-EXAMPLE-BUCKET

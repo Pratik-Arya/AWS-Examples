@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+echo "== deploy s3 bucket via cfn"
+# Set default region if not already configured
+export AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION:-us-east-1}
+
+
+
+STACK_NAME="cfn-s3-simple"
+
+aws cloudformation deploy \
+--template-file template.yaml \
+--no-execute-changeset \
+--region $AWS_DEFAULT_REGION \
+--stack-name $STACK_NAME
